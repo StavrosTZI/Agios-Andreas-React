@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 export const Welcome = (props) => {
 
   const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -15,29 +16,46 @@ export const Welcome = (props) => {
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
+  const handlePasswordChange = (event) =>{
+    setPassword(event.target.value);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log('Submitting username:', username);
+    console.log('Submitting password:', password);
 
     try {
-      const response = await axios.get('http://localhost:8080/check-username', {
-        params: { username: username }
-      });
-      console.log('Response from backend:', response);
-        setError('');  // Clear any previous error
-        setError(response.data);
-        if(response.data===''){
-          setError('');  // Clear any previous error
-          const response = await axios.get('http://localhost:8080/find-id', {
-          params: { username: username }});
-          console.log(response.data)
-          navigate('/theory-part-1', { state: { myData: response.data } })
+      // Send a POST request to register the user
+      const response = await axios.post('http://localhost:8081/api/users/register', {
+        username: username, 
+        password: password 
+      }, {
+        headers: {
+          'Content-Type': 'application/json'  // Set headers for JSON request
         }
+      });
+
+      const token = response.data.token;
+      localStorage.setItem('token', token);
+      const userId=response.data.userId;
+      localStorage.setItem('userId', userId);
+
+      console.log('Response from backend:', response.data);
+
+      // Handle the response - clear errors if successful
+      setError(''); 
+
+      // If the registration is successful, navigate to the next page
+      if (!response.data.error) {
+        navigate('/theory-part-1', { state: { myData: response.data } });
+      } else {
+        // If there is an error in the response, display it
+        setError(response.data.error);
+      }
     } catch (error) {
-      console.error('Error checking username:', error);
-      setError('');  // Clear any previous error
-      setError('Υπήρξε σφάλμα κατά τον έλεγχο του ονόματος χρήστη. Προσπαθήστε ξανά.');
+      console.error('Error during registration:', error);
+      setError('Υπήρξε σφάλμα κατά την εγγραφή. Προσπαθήστε ξανά.');
     }
   };
 
@@ -55,6 +73,12 @@ export const Welcome = (props) => {
                 name="username"
                 placeholder="Username"
                 onChange={handleUsernameChange}
+              />
+              <input
+                type="text"
+                name="password"
+                placeholder="Password"
+                onChange={handlePasswordChange}
               />
             </label>
             <br />

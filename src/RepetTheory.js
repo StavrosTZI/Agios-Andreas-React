@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from "./axioshelper"
 import TypingEffect from 'react-typing-effect';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
@@ -32,8 +32,8 @@ const RepetTheory = () => {
   useEffect(() => {
     const fetchChapters = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/answers/checking', {
-          params: { userId: myData }
+        const response = await api.get('http://localhost:8081/api/answers/checking', {
+          params: { userId: localStorage.getItem("userId") }
         });
   
         // Ανανέωση των state chapters και repQuestions με τα δεδομένα από τον server

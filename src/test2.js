@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from "./axioshelper"
 import TypingEffect from 'react-typing-effect';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -32,7 +32,7 @@ const Test2 = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/questions/for-module-2');
+        const response = await api.get('http://localhost:8081/api/questions/for-module-2');
         setQuestions(response.data);
       } catch (error) {
         console.error('Error fetching questions:', error);
@@ -75,11 +75,11 @@ const Test2 = () => {
         questionId: questions[currentQuestion]?.id,
         time: timeTaken,
         answer: selectedAnswer,
-        userID: myData,
+        userID: localStorage.getItem("userId"),
       };
 
       try {
-        await axios.post('http://localhost:8080/api/answers', answerData);
+        await api.post('http://localhost:8081/api/answers', answerData);
         console.log(`Answer for question ${currentQuestion + 1} submitted successfully`);
       } catch (error) {
         console.error('Error submitting answer:', error);

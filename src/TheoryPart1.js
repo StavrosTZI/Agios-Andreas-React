@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import axios from 'axios';
+import api from "./axioshelper"
 import TypingEffect from 'react-typing-effect';
 import { useNavigate } from 'react-router-dom';
 import image1 from "./assets/image8.jpeg";
@@ -32,7 +32,7 @@ const TheoryPart1 = () => {
   useEffect(() => {
     const fetchChapters = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/theory-parts/module-1');
+        const response = await api.get('http://localhost:8081/api/theory-parts/module-1');
         setChapters(response.data);
       } catch (error) {
         console.error('Error fetching chapters:', error);
