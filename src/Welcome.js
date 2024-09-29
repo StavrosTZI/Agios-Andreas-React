@@ -20,14 +20,18 @@ export const Welcome = (props) => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = async (event) => {
+  const goToLogin = async(event)=>{
+    navigate('/login');
+  }
+
+  const handleRegister = async (event) => {
     event.preventDefault();
     console.log('Submitting username:', username);
     console.log('Submitting password:', password);
 
     try {
       // Send a POST request to register the user
-      const response = await axios.post('http://localhost:8081/api/users/register', {
+      const response = await axios.post('https://localhost:8081/api/users/register', {
         username: username, 
         password: password 
       }, {
@@ -66,7 +70,7 @@ export const Welcome = (props) => {
         <img src={teacher} alt="Left" className="side-image left" />
         <div className="form-container">
           <h3>Δώσε ένα όνομα χρήστη που θα χρησιμεύσει στην αποθήκευση των επιδόσεών σου.</h3>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleRegister}>
             <label>
               <input
                 type="text"
@@ -86,6 +90,11 @@ export const Welcome = (props) => {
           </form>
           {error && <p className="error">{error}</p>}
         </div>
+      </div>
+      <div className='change-button'>
+        <h3>Έχεται ήδη λογαριασμό;Πιέστε το κουμπί σύνδεση.</h3>
+        <button onClick={goToLogin}>Σύνδεση</button>
+
       </div>
     </div>
   );

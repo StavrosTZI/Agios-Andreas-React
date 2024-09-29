@@ -28,7 +28,7 @@ const Test3 = () => {//change
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await api.get('http://localhost:8081/api/questions/for-module-3');//change on backend
+        const response = await api.get('https://localhost:8081/api/questions/for-module-3');//change on backend
         setQuestions(response.data);
       } catch (error) {
         console.error('Error fetching questions:', error);
@@ -75,7 +75,7 @@ const Test3 = () => {//change
       };
 
       try {
-        await api.post('http://localhost:8081/api/answers', answerData);
+        await api.post('https://localhost:8081/api/answers', answerData);
         console.log(`Answer for question ${currentQuestion + 1} submitted successfully`);
       } catch (error) {
         console.error('Error submitting answer:', error);

@@ -11,6 +11,8 @@ import Test3 from "./test3";
 import RepetTheory from "./RepetTheory";
 import RepetTest from "./RepetTest";
 import Final from "./final";
+import Login from "./Login";
+
 
 
 
@@ -40,6 +42,7 @@ function App() {
                 <Route path='/repet-theory' element={<RepetTheory />}/>
                 <Route path='/repet-test' element={<RepetTest />}/>
                 <Route path='/final' element={<Final />}/>
+                <Route path='/login' element={< Login />}/>
                 <Route path='*' element={<NotFound />} />
             </Routes>
         </BrowserRouter>

@@ -32,7 +32,7 @@ const TheoryPart1 = () => {
   useEffect(() => {
     const fetchChapters = async () => {
       try {
-        const response = await api.get('http://localhost:8081/api/theory-parts/module-1');
+        const response = await api.get('https://localhost:8081/api/theory-parts/module-1');
         setChapters(response.data);
       } catch (error) {
         console.error('Error fetching chapters:', error);

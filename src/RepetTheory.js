@@ -32,7 +32,7 @@ const RepetTheory = () => {
   useEffect(() => {
     const fetchChapters = async () => {
       try {
-        const response = await api.get('http://localhost:8081/api/answers/checking', {
+        const response = await api.get('https://localhost:8081/api/answers/checking', {
           params: { userId: localStorage.getItem("userId") }
         });
   
